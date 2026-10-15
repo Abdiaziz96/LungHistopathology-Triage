@@ -13,6 +13,40 @@ __pycache__/
 # Research artifacts (downloaded repos, blog posts, analyses) - not part of the product
 research/
 
+# Agent / workspace scaffolding - local working files, not product
+.dsh/
+AGENTS.md
+agents.md
+HANDOVER.md
+SESSION_START.md
+SESSION_PROTOCOL.md
+WORKSPACE_SUMMARY.md
+BEST_MODEL.md
+IMAGES.md
+QUICK_READ.SKILL.md
+UI_UX_PRO_MAX.SKILL.md
+
+# Test and debug artefacts
+test_slide*.jpg
+test_slide*.png
+template_preview.jpg
+debug_heatmap_*
+check_samples.py
+diagnose_classes.py
+determine_class_order.py
+hf_check.py
+hf_search.py
+smoke_test_model.py
+test_api.py
+rmdir
+dsh
+
+# Downloaded reference material
+cloned_dark_lung_dashboard/
+wix_template_raw.html
+data/torrents/
+data/processed/
+
 # Download artifacts & large model weights (fetch via the download scripts)
 *.safetensors
 dl_parts/

@@ -7,7 +7,9 @@
  * Numerics match the Python implementation: Resize(192) -> ToTensor() (range 0..1,
  * NO ImageNet normalisation), 5-class head, take the 3 lung logits and softmax them.
  */
-import * as ort from 'onnxruntime-web';
+// Import the wasm-only entry point. The default 'onnxruntime-web' entry bundles the
+// jsep/webgpu backend, which pulls a 27 MB jsep wasm that we neither ship nor need.
+import * as ort from 'onnxruntime-web/wasm';
 
 const BASE = import.meta.env.BASE_URL || '/';
 const MODEL_URL = `${BASE}models/lung_classifier.onnx`;
