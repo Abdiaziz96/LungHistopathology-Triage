@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lung Histopathology Triage - Presentation</title>
+<style>
+  @page { size: 13.333in 7.5in; margin: 0; }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family: "Segoe UI", Calibri, Arial, sans-serif; color:#212B32; background:#fff; }
+  .slide { width:13.333in; height:7.5in; page-break-after:always; position:relative; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
+  .slide:last-child { page-break-after:auto; }
+  .pad { padding:0.6in 0.75in; flex:1; display:flex; flex-direction:column; }
+  .kicker { font-size:11pt; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#005EB8; margin-bottom:10px; }
+  h1 { font-size:40pt; line-height:1.1; font-weight:700; color:#003087; letter-spacing:-0.5px; }
+  h2 { font-size:26pt; line-height:1.15; font-weight:700; color:#003087; margin-bottom:6px; }
+  h3 { font-size:14pt; font-weight:700; color:#003087; margin-bottom:4px; }
+  p { font-size:13pt; line-height:1.5; color:#425563; }
+  .lede { font-size:15pt; line-height:1.5; color:#425563; max-width:9.6in; }
+  .rule { height:5px; width:70px; background:#005EB8; border-radius:3px; margin:14px 0 20px; }
+  .footer { position:absolute; bottom:0.3in; left:0.75in; right:0.75in; display:flex; justify-content:space-between; font-size:9pt; color:#8A9AA5; border-top:1px solid #E2E8EC; padding-top:8px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+  .card { border:1px solid #DCE3E8; border-left:5px solid #005EB8; border-radius:6px; padding:15px 17px; background:#FBFCFD; }
+  .card.teal { border-left-color:#00A499; } .card.amber { border-left-color:#ED8B00; } .card.navy { border-left-color:#003087; }
+  .card p { font-size:11.5pt; line-height:1.45; }
+  .num { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; background:#005EB8; color:#fff; font-weight:700; font-size:14pt; margin-bottom:9px; }
+  .num.teal { background:#00A499; } .num.amber { background:#ED8B00; } .num.navy { background:#003087; }
+  .chips { display:flex; gap:9px; flex-wrap:wrap; margin-top:6px; }
+  .chip { font-size:10.5pt; font-weight:600; padding:7px 14px; border-radius:20px; background:#E8F1F8; color:#005EB8; }
+  .chip.g { background:#E3F5F3; color:#00746C; } .chip.a { background:#FDF0DC; color:#B36B00; }
+  pre { background:#0B1B2B; color:#D6E4F0; border-radius:7px; padding:15px 17px; font-family:Consolas,monospace; font-size:10.5pt; line-height:1.55; }
+  .tag { display:inline-block; font-family:Consolas,monospace; font-size:10pt; background:#E8F1F8; color:#005EB8; padding:3px 9px; border-radius:4px; font-weight:700; }
+  .pipe { display:flex; align-items:center; }
+  .pbox { flex:1; border:1px solid #DCE3E8; border-top:4px solid #005EB8; border-radius:6px; padding:12px 10px; text-align:center; background:#FBFCFD; }
+  .pbox strong { display:block; font-size:11.5pt; color:#003087; margin-bottom:3px; }
+  .pbox span { font-size:9.5pt; color:#6B7C87; line-height:1.35; display:block; }
+  .arrow { color:#A9BAC4; font-size:17pt; padding:0 7px; font-weight:700; }
+  ul { list-style:none; }
+  li { position:relative; padding-left:24px; margin-bottom:11px; font-size:12.5pt; line-height:1.45; color:#425563; }
+  li:before { content:""; position:absolute; left:2px; top:8px; width:9px; height:9px; background:#005EB8; border-radius:2px; }
+  li.ok:before { background:#00A499; } li.warn:before { background:#ED8B00; }
+  .cover { background:linear-gradient(135deg,#003087 0%,#005EB8 58%,#0072CE 100%); }
+  .cover .pad { justify-content:center; }
+  .cover h1 { color:#fff; font-size:46pt; }
+  .cover p { color:#C9DEF2; }
+  .cover .rule { background:#41B6E6; }
+  .coverfoot { position:absolute; bottom:0.5in; left:0.75in; right:0.75in; display:flex; justify-content:space-between; color:#9CC3E6; font-size:10pt; border-top:1px solid rgba(255,255,255,0.22); padding-top:11px; }
+  .lbl { font-size:10pt; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:#8A9AA5; margin-bottom:8px; }
+  .note { background:#FDF0DC; border-left:5px solid #ED8B00; border-radius:6px; padding:13px 16px; font-size:11.5pt; line-height:1.5; color:#6B4A00; }
+</style>
+</head>
+<body>
+
+<div class="slide cover">
+  <div class="pad">
+    <div class="kicker" style="color:#9CC3E6">AI-Assisted Clinical Triage</div>
+    <h1>Lung Histopathology<br>Triage System</h1>
+    <div class="rule"></div>
+    <p class="lede" style="color:#C9DEF2;font-size:16pt">An explainable deep-learning classifier that triages lung tissue slides into adenocarcinoma, squamous cell carcinoma, or benign - with visual evidence a pathologist can inspect.</p>
+    <div class="chips" style="margin-top:26px">
+      <span class="chip" style="background:rgba(255,255,255,0.15);color:#E4F0FA">3-Class Classification</span>
+      <span class="chip" style="background:rgba(255,255,255,0.15);color:#E4F0FA">Grad-CAM Explainability</span>
+      <span class="chip" style="background:rgba(255,255,255,0.15);color:#E4F0FA">FastAPI + React</span>
+      <span class="chip" style="background:rgba(255,255,255,0.15);color:#E4F0FA">Model v4.1.0</span>
+    </div>
+  </div>
+  <div class="coverfoot"><span>Lung Histopathology Triage</span><span>Clinical Decision Support - Research Prototype</span></div>
+</div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">The Problem</div>
+  <h2>Pathology triage is a bottleneck</h2>
+  <div class="rule"></div>
+  <p class="lede">Every lung biopsy slide must be reviewed by a specialist. Demand grows faster than the pathologist workforce, and the first question on every desk is the same: <b>which cases need attention first?</b></p>
+  <div class="grid3" style="margin-top:22px">
+    <div class="card"><h3>Volume</h3><p>Slide caseloads rise year on year while specialist numbers stay flat. Backlogs delay diagnosis.</p></div>
+    <div class="card teal"><h3>Priority</h3><p>Malignant and benign cases sit in the same queue. There is no fast first-pass signal to sort them.</p></div>
+    <div class="card navy"><h3>Trust</h3><p>A model that only outputs a label is not clinically useful. Reviewers need to see <i>why</i> it decided.</p></div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>2</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">The Solution</div>
+  <h2>A triage layer, not a replacement</h2>
+  <div class="rule"></div>
+  <p class="lede">Upload a slide, receive a class prediction with a confidence score and a Grad-CAM heatmap highlighting the tissue regions that drove the decision. The pathologist reviews the evidence and makes the call.</p>
+  <div class="pipe" style="margin-top:30px">
+    <div class="pbox"><strong>Upload</strong><span>Histopathology image (JPG/PNG)</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>Classify</strong><span>ResNet backbone, 3-class head</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>Explain</strong><span>Grad-CAM activation overlay</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>Review</strong><span>Clinician inspects and decides</span></div>
+  </div>
+  <div class="note" style="margin-top:30px"><b>Human in the loop.</b> The system produces decision support only. No diagnosis is issued without a qualified pathologist reviewing the output.</div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>3</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Key Features</div>
+  <h2>What the system does</h2>
+  <div class="rule"></div>
+  <div class="grid2" style="margin-top:8px">
+    <div class="card"><h3>Three-Class Triage</h3><p>Separates adenocarcinoma, squamous cell carcinoma, and benign tissue in a single pass.</p></div>
+    <div class="card teal"><h3>Grad-CAM Explainability</h3><p>Returns a heatmap showing which regions of the slide influenced the prediction.</p></div>
+    <div class="card amber"><h3>Confidence Scoring</h3><p>Per-class probability distribution, so low-confidence cases can be flagged for review.</p></div>
+    <div class="card navy"><h3>Batch Processing</h3><p>Submit multiple slides in one request for high-throughput screening runs.</p></div>
+    <div class="card"><h3>Clinical Dashboard</h3><p>React interface with upload zone, side-by-side original vs heatmap viewer, and live stats.</p></div>
+    <div class="card teal"><h3>REST API + OpenAPI</h3><p>Typed JSON endpoints with auto-generated interactive docs at <span class="tag">/docs</span>.</p></div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>4</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Feature 01</div>
+  <h2>Three-class prediction</h2>
+  <div class="rule"></div>
+  <div class="grid2" style="gap:26px">
+    <div>
+      <p style="margin-bottom:16px">A single POST request returns the predicted class, the full probability distribution, and the model version that produced it.</p>
+      <ul>
+        <li><b>Adenocarcinoma</b> - malignant glandular tissue</li>
+        <li><b>Squamous cell carcinoma</b> - malignant squamous tissue</li>
+        <li><b>Benign</b> - non-malignant lung tissue</li>
+      </ul>
+      <p class="lbl" style="margin-top:16px">Request</p>
+      <pre>POST /predict
+Content-Type: multipart/form-data
+
+file: slide image</pre>
+    </div>
+    <div>
+      <p class="lbl">Response</p>
+      <pre>{
+  "prediction": "benign",
+  "confidence": 0.915,
+  "probabilities": {
+    "adenocarcinoma": 0.041,
+    "squamous_cell_carcinoma": 0.044,
+    "benign": 0.915
+  },
+  "model_version": "4.1.0",
+  "heatmap": "base64 PNG"
+}</pre>
+      <div class="note" style="margin-top:14px">Real output: <b>benign - 91.5%</b> on a supplied tissue image.</div>
+    </div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>5</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Feature 02</div>
+  <h2>Grad-CAM explainability</h2>
+  <div class="rule"></div>
+  <p class="lede">A confidence score alone does not earn clinical trust. The system back-propagates the winning class through the final convolutional block to produce a heatmap of the pixels that mattered most.</p>
+  <div class="pipe" style="margin-top:26px">
+    <div class="pbox"><strong>Forward pass</strong><span>Image through ResNet backbone</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>Hook</strong><span>Capture gradients at layer4</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>Weight</strong><span>Channel activations by gradient</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>Overlay</strong><span>Colormap blended onto original</span></div>
+  </div>
+  <div class="grid2" style="margin-top:26px">
+    <div class="card teal"><h3>For the reviewer</h3><p>Confirms the model is looking at tissue morphology rather than slide artefacts, pen marks, or background.</p></div>
+    <div class="card amber"><h3>For the auditor</h3><p>Every prediction ships with its evidence. Disagreements can be examined rather than argued.</p></div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>6</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Feature 03</div>
+  <h2>The clinical dashboard</h2>
+  <div class="rule"></div>
+  <p class="lede">A React interface built for pathologists, not for engineers. Drag a slide in, read the result, inspect the heatmap, export the report.</p>
+  <div class="grid3" style="margin-top:20px">
+    <div class="card"><span class="num">1</span><h3>Upload Zone</h3><p>Drag-and-drop or browse. Validates file type and shows upload progress.</p></div>
+    <div class="card teal"><span class="num teal">2</span><h3>Heatmap Viewer</h3><p>Tabbed viewer switching between the original slide and the Grad-CAM overlay.</p></div>
+    <div class="card amber"><span class="num amber">3</span><h3>Stats Panel</h3><p>Predicted class, confidence bar, and probability breakdown per class.</p></div>
+  </div>
+  <div class="chips" style="margin-top:26px">
+    <span class="chip">React + Vite</span>
+    <span class="chip g">Tailwind CSS</span>
+    <span class="chip a">shadcn/ui components</span>
+    <span class="chip">NHS-branded header</span>
+    <span class="chip g">Print / export report</span>
+    <span class="chip a">Responsive layout</span>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>7</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Feature 04</div>
+  <h2>API surface</h2>
+  <div class="rule"></div>
+  <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:26px">
+    <div>
+      <p class="lbl">Endpoints</p>
+      <div class="card" style="margin-bottom:11px"><h3><span class="tag">GET</span> /health</h3><p>Liveness and model status. Returns device, model version, and class count. Used by the platform health check.</p></div>
+      <div class="card teal" style="margin-bottom:11px"><h3><span class="tag">POST</span> /predict</h3><p>Single-image classification with heatmap generation.</p></div>
+      <div class="card amber" style="margin-bottom:11px"><h3><span class="tag">POST</span> /predict/batch</h3><p>Multiple images in one request for bulk screening.</p></div>
+      <div class="card navy"><h3><span class="tag">GET</span> /docs</h3><p>Auto-generated OpenAPI reference, interactive and always current.</p></div>
+    </div>
+    <div>
+      <p class="lbl">Live health response</p>
+      <pre>{
+  "status": "live",
+  "device": "cpu",
+  "model_version": "4.1.0",
+  "num_classes": 3
+}</pre>
+      <div class="note" style="margin-top:16px"><b>Verified running locally.</b> The backend answers on port 8000 with the model loaded and ready for inference.</div>
+      <p class="lbl" style="margin-top:18px">Start it</p>
+      <pre>.venv\Scripts\python.exe -m uvicorn api:app --port 8000</pre>
+    </div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>8</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Architecture</div>
+  <h2>How the pieces fit</h2>
+  <div class="rule"></div>
+  <div class="pipe" style="margin-top:6px">
+    <div class="pbox"><strong>React Dashboard</strong><span>Vite build, static assets</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>REST / JSON</strong><span>multipart upload, base64 response</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>FastAPI Service</strong><span>api.py, lifespan model load</span></div>
+    <div class="arrow">&rarr;</div>
+    <div class="pbox"><strong>PyTorch Model</strong><span>ResNet backbone, 3-class head</span></div>
+  </div>
+  <div class="grid3" style="margin-top:30px">
+    <div class="card"><h3>Frontend</h3><p>Static React bundle. Deploys to any CDN - Vercel, Netlify, or served by the API itself.</p></div>
+    <div class="card teal"><h3>Backend</h3><p>Long-running Python process holding the model in memory. Needs a container host, not a serverless function.</p></div>
+    <div class="card navy"><h3>Model</h3><p>92 MB checkpoint loaded once at startup. CPU inference supported; GPU optional.</p></div>
+  </div>
+  <div class="note" style="margin-top:24px"><b>Why not serverless?</b> Model weights must stay resident. A cold start per request would reload 92 MB of tensors and destroy response time.</div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>9</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Machine Learning</div>
+  <h2>Model and training</h2>
+  <div class="rule"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px">
+    <div>
+      <p class="lbl">Architecture</p>
+      <ul>
+        <li><b>Backbone</b> - ResNet50, ImageNet pre-trained</li>
+        <li><b>Head</b> - 3-class linear classifier, dropout 0.3</li>
+        <li><b>Input</b> - 224 x 224 RGB tiles</li>
+        <li><b>Dataset</b> - LC25000 histopathological image set</li>
+      </ul>
+      <p class="lbl" style="margin-top:20px">Training strategy</p>
+      <ul>
+        <li><b>Phase 1</b> - frozen backbone, head only, higher LR</li>
+        <li><b>Phase 2</b> - full fine-tune, LR 1e-4, plateau scheduler</li>
+      </ul>
+    </div>
+    <div>
+      <p class="lbl">Configuration</p>
+      <pre>model:  resnet50
+classes: 3
+dropout: 0.3
+img_size: 224
+batch_size: 32
+epochs: 20
+lr: 1.0e-4
+scheduler: plateau</pre>
+      <div class="note" style="margin-top:16px"><b>Two-phase training</b> protects the pre-trained features early, then adapts the whole network to histopathology once the head has stabilised.</div>
+    </div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>10</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Deployment</div>
+  <h2>Running it in production</h2>
+  <div class="rule"></div>
+  <div class="grid2" style="gap:26px">
+    <div>
+      <div class="card" style="margin-bottom:14px"><h3>Backend - container host</h3><p><b>Railway</b> via the included <span class="tag">railway.toml</span>. Nixpacks builds the Python environment, the health check polls <span class="tag">/health</span>, and on-failure restarts are capped at three.</p></div>
+      <div class="card teal"><h3>Frontend - static CDN</h3><p><b>Vercel</b> or any static host. Run the Vite build, publish the output directory, point the API base URL at the backend.</p></div>
+    </div>
+    <div>
+      <p class="lbl">Environment variables</p>
+      <pre>PORT=8000
+MODEL_PATH=model.pth</pre>
+      <p class="lbl" style="margin-top:18px">Health check</p>
+      <pre>healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "on-failure"</pre>
+      <div class="note" style="margin-top:16px"><b>Weights are not in the repo.</b> Model files are gitignored to stay under hosting limits - the container must fetch them at build time.</div>
+    </div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>11</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Honest Status</div>
+  <h2>What is proven, and what is not</h2>
+  <div class="rule"></div>
+  <div class="grid2" style="gap:26px">
+    <div>
+      <p class="lbl" style="color:#00746C">Working and verified</p>
+      <ul>
+        <li class="ok">FastAPI backend runs and serves <span class="tag">/health</span> with the model loaded</li>
+        <li class="ok">Grad-CAM heatmaps generate end-to-end</li>
+        <li class="ok">Dashboard upload-to-result flow connected to the API</li>
+        <li class="ok">Two images classified end-to-end with real outputs</li>
+        <li class="ok">Deployment configuration written for both services</li>
+      </ul>
+    </div>
+    <div>
+      <p class="lbl" style="color:#B36B00">Not yet established</p>
+      <ul>
+        <li class="warn">Full LC25000 dataset not downloaded - no train/validation run in this workspace</li>
+        <li class="warn">No accuracy, sensitivity, or specificity figures measured</li>
+        <li class="warn">Only two test images; validation set absent</li>
+        <li class="warn">One image labelled adenocarcinoma was predicted benign at 91.5% - unexplained</li>
+        <li class="warn">Legacy <span class="tag">backend/main.py</span> mismatches the checkpoint and fails to load</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note" style="margin-top:20px"><b>Read this slide aloud.</b> The system is a tested pipeline, not a validated clinical tool. Any performance claim must wait for a proper held-out evaluation.</div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>12</span></div>
+</div></div>
+
+<div class="slide"><div class="pad">
+  <div class="kicker">Next Steps</div>
+  <h2>Path to a validated tool</h2>
+  <div class="rule"></div>
+  <div class="grid2" style="gap:18px">
+    <div class="card"><span class="num">1</span><h3>Acquire the dataset</h3><p>Run the LC25000 downloader and materialise the processed train/validation split.</p></div>
+    <div class="card teal"><span class="num teal">2</span><h3>Train and evaluate</h3><p>Execute the two-phase schedule and record accuracy, sensitivity, specificity, and confusion matrix per class.</p></div>
+    <div class="card amber"><span class="num amber">3</span><h3>Resolve the discrepancy</h3><p>Investigate the mispredicted adenocarcinoma case before making any accuracy claim.</p></div>
+    <div class="card navy"><span class="num navy">4</span><h3>Harden and deploy</h3><p>Remove the stale backend, wire the dashboard to the deployed API, and run a pilot review.</p></div>
+  </div>
+  <div class="footer"><span>Lung Histopathology Triage</span><span>13</span></div>
+</div></div>
+
+<div class="slide cover"><div class="pad">
+  <div class="kicker" style="color:#9CC3E6">Summary</div>
+  <h1 style="font-size:38pt">Explainable triage,<br>built for review</h1>
+  <div class="rule"></div>
+  <p class="lede" style="color:#C9DEF2;font-size:15pt">Three-class lung tissue classification, Grad-CAM evidence on every prediction, and a clinical dashboard a pathologist can actually use. The pipeline runs today; the validation is the next milestone.</p>
+  <div class="chips" style="margin-top:26px">
+    <span class="chip" style="background:rgba(255,255,255,0.15);color:#E4F0FA">Backend live on port 8000</span>
+    <span class="chip" style="background:rgba(255,255,255,0.15);color:#E4F0FA">Dashboard ready</span>
+    <span class="chip" style="background:rgba(255,255,255,0.15);color:#E4F0FA">Deployment configured</span>
+  </div>
+</div>
+<div class="coverfoot"><span>Lung Histopathology Triage</span><span>Decision support only - not a diagnostic device</span></div>
+</div>
+
+</body>
+</html>

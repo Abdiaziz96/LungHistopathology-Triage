@@ -1,0 +1,1 @@
+1. MODEL SELECTION: ask which model (default qwen/qwen3-coder-flash; allow override)

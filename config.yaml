@@ -1,0 +1,27 @@
+# Lung Histopathology Triage — Project Configuration
+# Model and training hyperparameters
+
+# Model
+model:
+  name: "resnet50"
+  num_classes: 3
+  dropout: 0.3
+  freeze_backbone: false   # true for Phase 1 (head only), false for Phase 2
+
+# Data
+data:
+  data_dir: "data/processed"
+  batch_size: 32
+  img_size: 224
+  num_workers: 0           # 0 for Windows safety
+
+# Training
+training:
+  epochs: 20
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  scheduler: "plateau"     # plateau | cosine
+
+# Two-phase training suggestion:
+# Phase 1: freeze_backbone=true,  epochs=10, lr=1e-3
+# Phase 2: freeze_backbone=false, epochs=20, lr=1e-4

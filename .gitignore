@@ -1,0 +1,24 @@
+checkpoints/
+.torch-cache/
+node_modules/
+lung-dashboard/node_modules/
+dist/
+lung-dashboard/dist/
+lung-dashboard/.npm-cache/
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Research artifacts (downloaded repos, blog posts, analyses) - not part of the product
+research/
+
+# Download artifacts & large model weights (fetch via the download scripts)
+*.safetensors
+dl_parts/
+*.tmp
+data/lc25000.zip
+data/lc25000_eval/
+data/raw/
+debug_heatmap_*
+*.pth
