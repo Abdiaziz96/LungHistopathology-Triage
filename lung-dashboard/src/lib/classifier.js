@@ -161,7 +161,10 @@ async function occlusionHeatmap(file, session, baseProbs, grid = 6) {
     octx.imageSmoothingEnabled = true;
     octx.drawImage(small, 0, 0, SIZE, SIZE);
     octx.globalAlpha = 1;
-    return out.toDataURL('image/png');
+    // Return the base64 payload only. toDataURL includes the "data:image/png;base64,"
+    // prefix, and HeatmapViewer prepends that prefix itself, so returning the full
+    // data URL produced a malformed src and a broken image.
+    return out.toDataURL('image/png').split(',')[1];
   } catch {
     return null;
   }
